@@ -11,9 +11,8 @@ public class ThreeCardsMonte
 		return correctCard;
 	}
 	
-	public int guess()
-	{
-		Scanner keyboard = new Scanner(System.in);
+	public int guess(Scanner input)
+	{	
 		int guess;
 		
 		System.out.println("");
@@ -22,21 +21,14 @@ public class ThreeCardsMonte
 		System.out.println("");
 		System.out.println("      ##  ##  ##   ");
 		System.out.println("      ##  ##  ##   ");
-		System.out.println("      1   2   3    ");
+		System.out.println("      1   2   3    ");	
+
+		guess = input.nextInt();
 		
-//		if(keyboard.hasNextLine())
-//		{
-			
-			
-//		}
-		guess = keyboard.nextInt();
-//		keyboard.nextLine();
-		
-		keyboard.close();
-		return guess;
-		
-	
+		return guess;	
 	}
+	
+
 	
 	public boolean checkGuess(int correctCard, int guessedCard)
 	{
@@ -70,10 +62,10 @@ public class ThreeCardsMonte
 		}
 		else
 		{
-			System.out.println("Ha! Fast Eddie wins again! The ace was card number 3.");
 			
 			if (correctCard == 1)
 			{
+				System.out.println("Ha! Fast Eddie wins again! The ace was card number 1.");
 				System.out.println("");
 				System.out.println("      AA  ##  ##   ");
 				System.out.println("      AA  ##  ##   ");
@@ -81,6 +73,7 @@ public class ThreeCardsMonte
 			}
 			else if (correctCard == 2)
 			{
+				System.out.println("Ha! Fast Eddie wins again! The ace was card number 2.");
 				System.out.println("");
 				System.out.println("      ##  AA  ##   ");
 				System.out.println("      ##  AA  ##   ");
@@ -88,6 +81,7 @@ public class ThreeCardsMonte
 			}
 			else if (correctCard == 3)
 			{
+				System.out.println("Ha! Fast Eddie wins again! The ace was card number 3.");
 				System.out.println("");
 				System.out.println("      ##  ##  AA   ");
 				System.out.println("      ##  ##  AA   ");
@@ -98,9 +92,8 @@ public class ThreeCardsMonte
 			
 	}
 	
-	public int letBet()
+	public int letBet(Scanner input)
 	{
-		Scanner input = new Scanner(System.in);
 		
 		System.out.println("You slide up to Fast Eddie's card table and plop down your cash. \nHe glances at you out of the corner of his eye and starts shuffling");
 		System.out.println("He lays down three cards.");
@@ -113,34 +106,26 @@ public class ThreeCardsMonte
 		
 			if (bet < 5) {System.out.println("I need 5 bucks minimum man");}
 		}while (bet<5);
-		input.close();
+
 		return bet;
 	}
 	
 	public int processBet(int balance, int bet, boolean win)
 	{
 		balance = balance - bet;
-		if (balance > 0 && balance < 500)
+
+		if (win == true)
 		{
-			if (win == true)
-			{
-				balance = balance + (bet*2);
-			}
-			else if (win == false)
-			{
-				balance = balance - bet;
-			}
-			System.out.println("Your balance: " + balance);	
+			balance = balance + (bet*2);
 		}
-		else if (balance < 0)
+		else if (win == false)
 		{
-			System.out.println("That is it for you, you are out of money.");
+			balance = balance - bet;
 		}
-		else
-		{
-			System.out.println("That is it for you, you've won too much.");
-		}
+		System.out.println("");	
+		System.out.println("Your balance: " + balance);
+		System.out.println("");	
 		
-		return balance;
+			return balance;
 	}
 }
