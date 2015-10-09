@@ -6,12 +6,9 @@ public class ThreeCardsMonte
 	public int pickCard()
 	{
 		Random r = new Random();
-		int secretNum = 1 + r.nextInt(3);
+		int correctCard = 1 + r.nextInt(3);
 		
-		System.out.println("You slide up to Fast Eddie's card table and plop down your cash. \nHe glances at you out of the corner of his eye and starts shuffling");
-		System.out.println("He lays down three cards.");
-		
-		return secretNum;
+		return correctCard;
 	}
 	
 	public int guess()
@@ -27,18 +24,22 @@ public class ThreeCardsMonte
 		System.out.println("      ##  ##  ##   ");
 		System.out.println("      1   2   3    ");
 		
+//		if(keyboard.hasNextLine())
+//		{
+			
+			
+//		}
 		guess = keyboard.nextInt();
+//		keyboard.nextLine();
 		
 		keyboard.close();
-		
 		return guess;
+		
 	
 	}
 	
-	public void checkGuess()
+	public boolean checkGuess(int correctCard, int guessedCard)
 	{
-		int correctCard = pickCard();
-		int guessedCard = guess();
 		
 		if (correctCard == guessedCard)
 		{
@@ -65,6 +66,7 @@ public class ThreeCardsMonte
 				System.out.println("      ##  ##  AA   ");
 				System.out.println("      1   2   3    ");
 			}
+			return true;
 		}
 		else
 		{
@@ -91,8 +93,54 @@ public class ThreeCardsMonte
 				System.out.println("      ##  ##  AA   ");
 				System.out.println("      1   2   3    ");
 			}
+			return false;
 		}
 			
 	}
 	
+	public int letBet()
+	{
+		Scanner input = new Scanner(System.in);
+		
+		System.out.println("You slide up to Fast Eddie's card table and plop down your cash. \nHe glances at you out of the corner of his eye and starts shuffling");
+		System.out.println("He lays down three cards.");
+		
+		int bet = 0;
+		do{
+			System.out.println("");
+			System.out.println("\"Place your bet\" he says...");
+			bet = input.nextInt();
+		
+			if (bet < 5) {System.out.println("I need 5 bucks minimum man");}
+		}while (bet<5);
+		input.close();
+		return bet;
+	}
+	
+	public int processBet(int balance, int bet, boolean win)
+	{
+		balance = balance - bet;
+		if (balance > 0 && balance < 500)
+		{
+			if (win == true)
+			{
+				balance = balance + (bet*2);
+			}
+			else if (win == false)
+			{
+				balance = balance - bet;
+			}
+			System.out.println("Your balance: " + balance);	
+		}
+		else if (balance < 0)
+		{
+			System.out.println("That is it for you, you are out of money.");
+		}
+		else
+		{
+			System.out.println("That is it for you, you've won too much.");
+		}
+		
+		return balance;
+	}
 }
